@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
             $table->double('competitive_price');
             $table->string('image', 150);
 
-            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+          
             $table->timestamps();
         });
     }
