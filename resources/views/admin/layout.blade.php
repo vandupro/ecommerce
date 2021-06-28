@@ -48,12 +48,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+            <h1 class="m-0">@yield('title')</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
+              <li class="breadcrumb-item active">@yield('title') </li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -76,7 +76,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <script src="{{asset('asset_be/plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -87,18 +86,7 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('asset_be/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- ChartJS -->
-<script src="{{asset('asset_be/plugins/chart.js/Chart.min.js')}}"></script>
-<!-- Sparkline -->
-<script src="{{asset('asset_be/plugins/sparklines/sparkline.js')}}"></script>
-<!-- JQVMap -->
-<script src="{{asset('asset_be/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
-<script src="{{asset('asset_be/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{asset('asset_be/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
-<!-- daterangepicker -->
-<script src="{{asset('asset_be/plugins/moment/moment.min.js')}}"></script>
-<script src="{{asset('asset_be/plugins/daterangepicker/daterangepicker.js')}}"></script>
+
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="{{asset('asset_be/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 <!-- Summernote -->
@@ -109,7 +97,6 @@
 <script src="{{asset('asset_be/dist/js/adminlte.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('asset_be/dist/js/demo.js')}}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{asset('asset_be/dist/js/pages/dashboard.js')}}"></script>
+@yield('javascript')
 </body>
 </html>
