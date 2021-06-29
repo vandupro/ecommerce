@@ -49,7 +49,7 @@ class CategoryController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
-            return redirect()->route('admin.pages.cate.create')
+            return redirect()->route('admin.cate.create')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -58,7 +58,7 @@ class CategoryController extends Controller
             'name' => $request->name,
             'slug' => $request->slug
         ]);
-        return \redirect()->route('admin.pages.cate.create')->with('status', 'cập nhật danh mục thành công !');
+        return \redirect()->route('admin.cate.index')->with('status', 'cập nhật danh mục thành công !');
     }
 
     public function edit($id,Category $category )
