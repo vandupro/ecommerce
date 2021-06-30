@@ -74,25 +74,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('admin.cate.index')}}" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tất cả sản phẩm</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('admin.cate.create')}}" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm mới sản phẩm</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
+                <a href="{{route('admin.cate.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Danh mục sản phẩm</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('admin.cate.create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm mới danh mục sản phẩm</p>
                 </a>
@@ -217,13 +217,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('admin.permission.index')}}" class="nav-link">
+                <a href="{{route('admin.role.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tất cả chức vụ</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('admin.permission.create')}}" class="nav-link">
+                <a href="{{route('admin.role.create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm chức vụ</p>
                 </a>

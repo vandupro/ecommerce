@@ -81,4 +81,36 @@ Route::prefix('admin')->group(function () {
             // 'middleware' => 'can:edit_blog',   
         ]);
     });
+    Route::prefix('role')->group(function () {
+        Route::get('index', [
+            'as' => 'admin.role.index',
+            'uses' => 'RoleController@index',
+            // 'middleware' => 'can:edit_blog',   
+        ]);
+        Route::get('create', [
+            'as' => 'admin.role.create',
+            'uses' => 'RoleController@create',
+            // 'middleware' => 'can:edit_blog',   
+        ]);
+        Route::get('edit/{id}', [
+            'as' => 'admin.role.edit',
+            'uses' => 'RoleController@edit',
+            // 'middleware' => 'can:edit_blog',   
+        ]);
+        Route::post('store', [
+            'as' => 'admin.role.store',
+            'uses' => 'RoleController@store',
+            // 'middleware' => 'can:edit_blog',   
+        ]);
+        Route::post('update/{id}', [
+            'as' => 'admin.role.update',
+            'uses' => 'RoleController@update',
+            // 'middleware' => 'can:edit_blog',   
+        ]);
+        Route::get('destroy/{id}', [
+            'as' => 'admin.role.destroy',
+            'uses' => 'RoleController@destroy',
+            // 'middleware' => 'can:edit_blog',   
+        ]);
+    });
 });
