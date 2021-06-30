@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('title')
-Danh mục sản phẩm
+Danh mục chức vụ
 @endsection
 @section('content')
 @if (session('status'))

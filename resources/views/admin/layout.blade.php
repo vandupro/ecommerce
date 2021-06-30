@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="{{asset('asset_be/plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('asset_be/plugins/summernote/summernote-bs4.min.css')}}">
+  <link href="{{asset('asset_be/plugins/select2/css/select2.min.css')}}" rel="stylesheet" />
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -76,6 +77,8 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
+
 <!-- jQuery -->
 <script src="{{asset('asset_be/plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->

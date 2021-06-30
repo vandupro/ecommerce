@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('title')
-Thêm mới roles
+Chỉnh sửa chức vụ
 @endsection
 @section('content')
 @if (session('status'))

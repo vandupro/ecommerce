@@ -113,4 +113,36 @@ Route::prefix('admin')->group(function () {
             // 'middleware' => 'can:edit_blog',   
         ]);
     });
+    Route::prefix('user')->group(function () {
+        Route::get('index', [
+            'as' => 'admin.user.index',
+            'uses' => 'UserController@index',
+            // 'middleware' => 'can:edit_blog',   
+        ]);
+        Route::get('create', [
+            'as' => 'admin.user.create',
+            'uses' => 'UserController@create',
+            // 'middleware' => 'can:edit_blog',   
+        ]);
+        Route::get('edit/{id}', [
+            'as' => 'admin.user.edit',
+            'uses' => 'UserController@edit',
+            // 'middleware' => 'can:edit_blog',   
+        ]);
+        Route::post('store', [
+            'as' => 'admin.user.store',
+            'uses' => 'UserController@store',
+            // 'middleware' => 'can:edit_blog',   
+        ]);
+        Route::post('update/{id}', [
+            'as' => 'admin.user.update',
+            'uses' => 'UserController@update',
+            // 'middleware' => 'can:edit_blog',   
+        ]);
+        Route::get('destroy/{id}', [
+            'as' => 'admin.user.destroy',
+            'uses' => 'UserController@destroy',
+            // 'middleware' => 'can:edit_blog',   
+        ]);
+    });
 });
