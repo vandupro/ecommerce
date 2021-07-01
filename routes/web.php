@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,37 +17,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('admin.layout');
 });
-Route::prefix('admin')->group(function () {
-    Route::prefix('cate')->group(function () {
-        Route::get('index', [
-            'as' => 'admin.cate.index',
-            'uses' => 'CategoryController@index',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::get('create', [
-            'as' => 'admin.cate.create',
-            'uses' => 'CategoryController@create',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::get('edit/{id}', [
-            'as' => 'admin.cate.edit',
-            'uses' => 'CategoryController@edit',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::post('store', [
-            'as' => 'admin.cate.store',
-            'uses' => 'CategoryController@store',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::post('update/{id}', [
-            'as' => 'admin.cate.update',
-            'uses' => 'CategoryController@update',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::get('destroy/{id}', [
-            'as' => 'admin.cate.destroy',
-            'uses' => 'CategoryController@destroy',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
+Route::name('admin.')->prefix('admin/')->group(function(){
+    Route::name('categories.')->prefix('categories/')->group(function(){
+        Route::get('', [CategoryController::class, 'index'])->name('index');
+        //Route::get('create', [CategoryController::class, 'create'])->name('create');
+        Route::post('store', [CategoryController::class, 'store'])->name('store');
+
+        Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('edit');
+        Route::post('update', [CategoryController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [CategoryController::class, 'destroy'])->name('delete');
+
+
     });
 });

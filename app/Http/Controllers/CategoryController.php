@@ -14,57 +14,31 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      * 
      */
-    private $category;
-    public function __construct(Category $category)
-    {
-        $this->category = $category;
-    }
     public function index()
     {
-        $categorys = $this->category->paginate(10);
-        $categorys->load('product');     
-        return view("admin.pages.categorys.index", compact('categorys'));
+        $models = Category::orderBy('id', 'desc')->get();
+        return view('admin.pages.categories.index', compact('models'));
     }
-
-    public function create()
-    {
-        return view('admin.pages.categorys.create');
-    }
-
 
     public function store(Request $request)
     {
-        // validator
-        $rules = [
-            'name' => 'required|max:100|min:4',
-            'slug' => 'required|max:100|min:4',
-        ];
-        $messages = [
-            'name.required' => 'Mời nhập tên danh mục!',
-            'slug.required' => 'Mời nhập slug!',
-            'name.max' => 'Tên danh mục không quá 100 ký tự!',
-            'slug.max' => 'Slug không quá 100 ký tự!',
-            'name.min' => 'Tên danh mục ít nhất 4 ký tự!',
-            'slug.min' => 'Slug ít nhất 4 ký tự!',
-        ];
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return redirect()->route('admin.pages.cate.create')
-                ->withErrors($validator)
-                ->withInput();
-        }
-        //end validator
-        $this->category->create([
-            'name' => $request->name,
-            'slug' => $request->slug
+        $request->validate([
+            'name'=>'required|unique:categories',
+            'slug'=>'required|unique:categories',
         ]);
-        return \redirect()->route('admin.pages.cate.create')->with('status', 'cập nhật danh mục thành công !');
+        //var_dump($request);die;
+        $model = new Category();
+        $model->name = $request->input('name');
+        $model->slug = $request->input('slug');
+        $model->save();
+
+        return response()->json($model);
     }
 
-    public function edit($id,Category $category )
+    public function edit( $id )
     {
-        $categorys = $this->category->find($id);    
-        return view('admin.pages.categorys.edit', compact('categorys'));
+        $model = Category::find($id);
+        return response()->json($model);
         
     }
 
@@ -75,31 +49,23 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $rules = [
-            'name' => 'required|max:100|min:4',
-            'slug' => 'required|max:100|min:4',
-        ];
-        $messages = [
-            'name.required' => 'Mời nhập tên danh mục!',
-            'slug.required' => 'Mời nhập slug!',
-            'name.max' => 'Tên danh mục không quá 100 ký tự!',
-            'slug.max' => 'Slug không quá 100 ký tự!',
-            'name.min' => 'Tên danh mục ít nhất 4 ký tự!',
-            'slug.min' => 'Slug ít nhất 4 ký tự!',
-        ];
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-        $this->category->find($id)->update([
-            'name' => $request->name,
-            'slug' => $request->slug
+        $request->validate([
+            'name'=>'required',
+            'slug'=>'required',
         ]);
-        return redirect()->back()->with('status', 'cập nhật danh mục thành công !');
+
+        $model = Category::find($request->id);
+        if($model){
+            $model->name = $request->name;
+            $model->slug = $request->slug;
+            $model->save();
+
+            return response()->json($model);
+        }else{
+            return redirect('/admin/categories');
+        }
     }
 
     /**
@@ -110,7 +76,12 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $this->category->find($id)->delete();
-        return redirect()->back()->with('status', 'xóa danh mục thành công !');
+        $model = Category::find($id);
+        if($model){
+            $model->delete();
+            return response()->json($model);
+        }else{
+            return redirect("/admin/categories");
+        }
     }
 }
