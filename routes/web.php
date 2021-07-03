@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -112,6 +112,7 @@ Route::prefix('admin')->group(function () {
             'uses' => 'RoleController@destroy',
             // 'middleware' => 'can:edit_blog',   
         ]);
+       
     });
     Route::prefix('user')->group(function () {
         Route::get('index', [
@@ -144,5 +145,6 @@ Route::prefix('admin')->group(function () {
             'uses' => 'UserController@destroy',
             // 'middleware' => 'can:edit_blog',   
         ]);
+       
     });
 });
