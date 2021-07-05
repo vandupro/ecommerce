@@ -16,135 +16,65 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('admin.layout');
 });
-Route::prefix('admin')->group(function () {
+// HtmlMinifier xóa bỏ khoảng trắng trong html giúp tăng tốc laravel
+Route::prefix('admin',['middleware'=>'HtmlMinifier'])->group(function () {
     Route::prefix('cate')->group(function () {
         Route::get('index', [
             'as' => 'admin.cate.index',
-            'uses' => 'CategoryController@index',
-            // 'middleware' => 'can:edit_blog',   
+            'uses' => 'CategoryController@index',            
         ]);
         Route::get('create', [
             'as' => 'admin.cate.create',
             'uses' => 'CategoryController@create',
-            // 'middleware' => 'can:edit_blog',   
+             
         ]);
         Route::get('edit/{id}', [
             'as' => 'admin.cate.edit',
             'uses' => 'CategoryController@edit',
-            // 'middleware' => 'can:edit_blog',   
+             
         ]);
         Route::post('store', [
             'as' => 'admin.cate.store',
             'uses' => 'CategoryController@store',
-            // 'middleware' => 'can:edit_blog',   
+             
         ]);
         Route::post('update/{id}', [
             'as' => 'admin.cate.update',
             'uses' => 'CategoryController@update',
-            // 'middleware' => 'can:edit_blog',   
+             
         ]);
         Route::get('destroy/{id}', [
             'as' => 'admin.cate.destroy',
             'uses' => 'CategoryController@destroy',
-            // 'middleware' => 'can:edit_blog',   
+             
         ]);
     });
     Route::prefix('permission')->group(function () {
-        Route::get('index', [
-            'as' => 'admin.permission.index',
-            'uses' => 'PermissionController@index',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::get('create', [
-            'as' => 'admin.permission.create',
-            'uses' => 'PermissionController@create',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::get('edit/{id}', [
-            'as' => 'admin.permission.edit',
-            'uses' => 'PermissionController@edit',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::post('store', [
-            'as' => 'admin.permission.store',
-            'uses' => 'PermissionController@store',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::post('update/{id}', [
-            'as' => 'admin.permission.update',
-            'uses' => 'PermissionController@update',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::get('destroy/{id}', [
-            'as' => 'admin.permission.destroy',
-            'uses' => 'PermissionController@destroy',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
+      Route::get('index', 'PermissionController@index')->name('admin.permission.index');
+      Route::get('create', 'PermissionController@create')->name('admin.permission.create');
+      Route::get('edit/{id}', 'PermissionController@edit')->name('admin.permission.edit');
+      Route::get('destroy/{id}', 'PermissionController@destroy')->name('admin.permission.destroy');
+      Route::post('store', 'PermissionController@store')->name('admin.permission.store');
+      Route::post('update/{id}', 'PermissionController@update')->name('admin.permission.update');
+   
+    
     });
     Route::prefix('role')->group(function () {
-        Route::get('index', [
-            'as' => 'admin.role.index',
-            'uses' => 'RoleController@index',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::get('create', [
-            'as' => 'admin.role.create',
-            'uses' => 'RoleController@create',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::get('edit/{id}', [
-            'as' => 'admin.role.edit',
-            'uses' => 'RoleController@edit',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::post('store', [
-            'as' => 'admin.role.store',
-            'uses' => 'RoleController@store',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::post('update/{id}', [
-            'as' => 'admin.role.update',
-            'uses' => 'RoleController@update',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::get('destroy/{id}', [
-            'as' => 'admin.role.destroy',
-            'uses' => 'RoleController@destroy',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
+        Route::get('index', 'RoleController@index')->name('admin.role.index');
+      Route::get('create', 'RoleController@create')->name('admin.role.create');
+      Route::get('edit/{id}', 'RoleController@edit')->name('admin.role.edit');
+      Route::get('destroy/{id}', 'RoleController@destroy')->name('admin.role.destroy');
+      Route::post('store', 'RoleController@store')->name('admin.role.store');
+      Route::post('update/{id}', 'RoleController@update')->name('admin.role.update');
        
     });
     Route::prefix('user')->group(function () {
-        Route::get('index', [
-            'as' => 'admin.user.index',
-            'uses' => 'UserController@index',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::get('create', [
-            'as' => 'admin.user.create',
-            'uses' => 'UserController@create',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::get('edit/{id}', [
-            'as' => 'admin.user.edit',
-            'uses' => 'UserController@edit',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::post('store', [
-            'as' => 'admin.user.store',
-            'uses' => 'UserController@store',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::post('update/{id}', [
-            'as' => 'admin.user.update',
-            'uses' => 'UserController@update',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-        Route::get('destroy/{id}', [
-            'as' => 'admin.user.destroy',
-            'uses' => 'UserController@destroy',
-            // 'middleware' => 'can:edit_blog',   
-        ]);
-       
+        Route::get('index', 'UserController@index')->name('admin.user.index');
+        Route::get('ajax', 'UserController@ajax')->name('admin.user.ajax');
+        Route::get('create', 'UserController@create')->name('admin.user.create');
+        Route::get('edit', 'UserController@edit')->name('admin.user.edit');
+        Route::get('destroy', 'UserController@destroy')->name('admin.user.destroy');
+        Route::post('store', 'UserController@store')->name('admin.user.store');
+        Route::post('update/{id}', 'UserController@update')->name('admin.user.update');  
     });
 });
