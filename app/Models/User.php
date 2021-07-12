@@ -18,13 +18,19 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'phone_number',
+        'profile',
+        'image',
         'email',
         'password',
+        'intro',
+        'register_at',
+        'last_login',
     ];
 
     /**
      * The attributes that should be hidden for arrays.
-     *
+    
      * @var array
      */
     protected $hidden = [
@@ -40,4 +46,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'roles_users', 'user_id', 'role_id');
+    }
+
 }
