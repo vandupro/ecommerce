@@ -208,7 +208,8 @@ class UserController extends Controller
             unlink("storage/" . $user->image);
             $pathAvatar = $request->file('image')->store('public/users');
             $pathAvatar = str_replace("public/", "", $pathAvatar);
-        } else {
+        } 
+        else {
             $pathAvatar = $user->image;
             // dd($pathAvatar);
         }

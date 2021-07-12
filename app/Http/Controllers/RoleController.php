@@ -105,9 +105,17 @@ class RoleController extends Controller
     
         $permissions_parent = $this->permission->where('parent_id',0)->get();
         $roles = $this->role->find($id);
+
+       dd( $roles);
+
+   if(isset($roles)&& !empty($roles)){
         $permissionsChecked= $roles->permissions;
-    //dd($permissionsChecked);
-        return view("admin.pages.roles.edit", compact('permissions_parent','roles','permissionsChecked'));
+    return view("admin.pages.roles.edit", compact('permissions_parent','roles','permissionsChecked'));
+   }
+else{
+    return redirect()->back();
+}
+        
     }
 
 

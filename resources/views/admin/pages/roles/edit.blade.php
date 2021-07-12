@@ -68,7 +68,8 @@ Chỉnh sửa chức vụ
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
                                             <td>
-                                                <input class="custom-control-input checkbox_childen" type="checkbox" name="permission_id[]" {{$permissionsChecked->contains('id',$permissionsChildenItem->id)? 'checked': ''}} id="customCheckbox1{{$permissionsChildenItem->id}}" value="{{$permissionsChildenItem->id}}">
+                                                <input class="custom-control-input checkbox_childen" type="checkbox" name="permission_id[]"
+                                                 {{$permissionsChecked->contains('id',$permissionsChildenItem->id)? 'checked': ''}} id="customCheckbox1{{$permissionsChildenItem->id}}" value="{{$permissionsChildenItem->id}}">
                                                 <label for="customCheckbox1{{$permissionsChildenItem->id}}" class="custom-control-label">{{$permissionsChildenItem->name}}</label>
                                             </td>
 
