@@ -18,37 +18,6 @@ Route::get('/', function () {
 });
 // HtmlMinifier xóa bỏ khoảng trắng trong html giúp tăng tốc laravel
 Route::prefix('admin',['middleware'=>'HtmlMinifier'])->group(function () {
-    Route::prefix('cate')->group(function () {
-        Route::get('index', [
-            'as' => 'admin.cate.index',
-            'uses' => 'CategoryController@index',            
-        ]);
-        Route::get('create', [
-            'as' => 'admin.cate.create',
-            'uses' => 'CategoryController@create',
-             
-        ]);
-        Route::get('edit/{id}', [
-            'as' => 'admin.cate.edit',
-            'uses' => 'CategoryController@edit',
-             
-        ]);
-        Route::post('store', [
-            'as' => 'admin.cate.store',
-            'uses' => 'CategoryController@store',
-             
-        ]);
-        Route::post('update/{id}', [
-            'as' => 'admin.cate.update',
-            'uses' => 'CategoryController@update',
-             
-        ]);
-        Route::get('destroy/{id}', [
-            'as' => 'admin.cate.destroy',
-            'uses' => 'CategoryController@destroy',
-             
-        ]);
-    });
     Route::prefix('permission')->group(function () {
       Route::get('index', 'PermissionController@index')->name('admin.permission.index');
       Route::get('create', 'PermissionController@create')->name('admin.permission.create');
