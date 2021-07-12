@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+
 class RoleController extends Controller
 {
     private $permission;
@@ -22,7 +23,7 @@ class RoleController extends Controller
     {
         $roles = $this->role->all();
 
-        return view("admin.pages.roles.index", compact('roles'));   
+        return view("admin.pages.roles.index", compact('roles'));
     }
 
     /**
@@ -32,8 +33,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions_parent = $this->permission->where('parent_id',0)->get();
-       // dd($permissions_parent);
+        $permissions_parent = $this->permission->where('parent_id', 0)->get();
+        // dd($permissions_parent);
         return view("admin.pages.roles.add", compact('permissions_parent'));
     }
 
@@ -68,19 +69,18 @@ class RoleController extends Controller
         //dd($request->permission_id);
         try {
             DB::beginTransaction();
-        $roles =  $this->role->create([
-            'name'=>$request->name,
-            'desc'=>$request->desc
-        ]);
-      
-        $roles->permissions()->attach($request->permission_id);
-        DB::commit();
-        return \redirect()->route('admin.role.index')->with('status', 'Thêm mới chức vụ thành công !');
-    } catch (Exception $exception) {
-        DB::rollBack();
-        Log::error('message :', $exception->getMessage() . '--line :' . $exception->getLine());
-    }
+            $roles =  $this->role->create([
+                'name' => $request->name,
+                'desc' => $request->desc
+            ]);
 
+            $roles->permissions()->attach($request->permission_id);
+            DB::commit();
+            return \redirect()->route('admin.role.index')->with('status', 'Thêm mới chức vụ thành công !');
+        } catch (Exception $exception) {
+            DB::rollBack();
+            Log::error('message :', $exception->getMessage() . '--line :' . $exception->getLine());
+        }
     }
 
     /**
@@ -102,20 +102,16 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-    
-        $permissions_parent = $this->permission->where('parent_id',0)->get();
+
+        $permissions_parent = $this->permission->where('parent_id', 0)->get();
         $roles = $this->role->find($id);
 
-       dd( $roles);
-
-   if(isset($roles)&& !empty($roles)){
-        $permissionsChecked= $roles->permissions;
-    return view("admin.pages.roles.edit", compact('permissions_parent','roles','permissionsChecked'));
-   }
-else{
-    return redirect()->back();
-}
-        
+        if (isset($roles) && !empty($roles)) {
+            $permissionsChecked = $roles->permissions;
+            return view("admin.pages.roles.edit", compact('permissions_parent', 'roles', 'permissionsChecked'));
+        } else {
+            return redirect()->back();
+        }
     }
 
 
@@ -143,12 +139,12 @@ else{
         try {
             DB::beginTransaction();
             $this->role->find($id)->update([
-                'name'=>$request->name,
-                'desc'=>$request->desc
-            ]);           
-            $roles = $this->role->find($id);           
+                'name' => $request->name,
+                'desc' => $request->desc
+            ]);
+            $roles = $this->role->find($id);
             $roles->permissions()->sync($request->permission_id); // upload update array to role_user ===> 'sync'
-           DB::commit();
+            DB::commit();
             return redirect()->back()->with('status', 'Cập nhật chức vụ thành công !');;
         } catch (Exception $exception) {
             DB::rollBack();
@@ -162,7 +158,7 @@ else{
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id,Role $role)
+    public function destroy($id, Role $role)
     {
         $this->role->find($id)->delete();
         return redirect()->back()->with('status', 'Bạn xóa chức vụ thành công !');

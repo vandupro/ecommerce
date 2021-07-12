@@ -117,6 +117,67 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <!-- <i class="nav-icon fas fa-edit"></i> -->
+                        <i class=" nav-icon fas fa-unlock-alt"></i>
+                        <p>
+                            Chức vụ
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('admin.permission.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tất cả permission</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.permission.create')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm permission</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.role.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tất cả chức vụ</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.role.create')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm chức vụ</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Người dùng
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('admin.user.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tất cả người dùng</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.user.create')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm người dùng</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
