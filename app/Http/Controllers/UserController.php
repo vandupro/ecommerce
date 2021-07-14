@@ -23,8 +23,11 @@ class UserController extends Controller
         $this->role = $role;
     }
     public function index()
-    {
+    {  // $users = $this->user->all();
         $roles = $this->role->all();
+       // $ABC= $roles->Permissions_roles;
+// dd($ABC);
+      
         return view('admin.pages.users.index', compact('roles'));
     }
 
@@ -40,12 +43,27 @@ class UserController extends Controller
     }
     public function ajax()
     {
+        $pagenumber = isset($_REQUEST['page']) == true ? $_REQUEST['page'] : 1; // 1 / 5 = 0->5   \\\ 2/5= 5->9
+        $pagesize = 4; // số lượng bản ghi trong một
+        $offset = ($pagenumber - 1) * $pagesize;
+
         $users = DB::table('roles')
             ->join('roles_users', 'roles.id', '=', 'roles_users.role_id')
             ->join('users', 'users.id', '=', 'roles_users.user_id')
-            ->where('roles.id', '=', $_REQUEST['id'])
-            ->get();
-        return response()->json($users);
+            ->where('roles.id', '=', $_REQUEST['id'])->where('users.name', 'like', '%' . $_REQUEST['search'] . '%');
+        if ($_REQUEST['status'] == "1" || $_REQUEST['status'] === "0") {
+            $users =  $users->where('status',$_REQUEST['status']);
+        }
+        $data['totalPage'] = intval(ceil(count($users->get()) / $pagesize));
+        $users =  $users->take($pagesize)->skip($offset)->get();
+      
+       if($data['totalPage']!=0){
+         $users[0]->paging = $data;  
+       }
+      // dd( $users);
+        $json = response()->json($users);
+        //    dd($users);
+        return $json;
     }
 
     public function store(Request $request)
@@ -80,12 +98,19 @@ class UserController extends Controller
 
         ];
 
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+        $validator = $request->validate($rules, $messages);
+        if ($request->status == "on") {
+            $request->status = 1;
+        } else {
+            $request->status = 0;
         }
+
+        // dd($request->status);
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
         $user = User::where('email', $request->email)->get();
 
         if (isset($user[0]['email'])) { //có dữ liệu
@@ -108,7 +133,7 @@ class UserController extends Controller
                 'intro' => "",
                 'register_at' => date('Y-m-d'),
                 'last_login' => date('Y-m-d'),
-
+                'status' => $request->status,
             ]);
 
             $user->roles()->attach($request->role_id); // upload create array to roles ===> 'attach'
@@ -163,8 +188,6 @@ class UserController extends Controller
             'profile' => 'required|max:500|min:4',
             'image' => 'mimetypes:image/jpeg,image/png|max:2048',
             'email' => 'required|email:rfc,dns',
-            'password' => 'required|max:100|min:4',
-
         ];
         $messages = [
             'name.required' => 'Mời chọn tên người dùng!',
@@ -179,9 +202,6 @@ class UserController extends Controller
             'profile.min' => 'Mô tả  ít nhất 4 ký tự!',
             'image.mimetypes' => 'Ảnh không đúng định dang:jpeg /png /jpg ',
             'image.max' => 'Kích thước ảnh tối đa 2048 kb',
-            'password.required' => 'Mời nhập mập khẩu người dùng!',
-            'password.max' => 'mập khẩu  không quá 100 ký tự!',
-            'password.min' => 'mập khẩu  ít nhất 4 ký tự!',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -192,6 +212,11 @@ class UserController extends Controller
         }
 
         $user =  $this->user->find($id);
+        if ($request->status == "on") {
+            $request->status = 1;
+        } else {
+            $request->status = 0;
+        }
 
         if ($request->email != $user->email) { //có dữ liệu
 
@@ -201,15 +226,25 @@ class UserController extends Controller
                 return redirect()->back()->with('erros', 'Email đã tồn tại !');
             }
         }
+        if (isset($request->password) && !empty($request->password)) {
+            $request->validate([
+                'password' => 'max:100|min:4',
+            ], [
+                'password.max' => 'mập khẩu  không quá 100 ký tự!',
+                'password.min' => 'mập khẩu  ít nhất 4 ký tự!',
+
+            ]);
+            $request->password = Hash::make($request->password);
+        } else {
+            $request->password = $user->password;
+        }
         $pathAvatar = "";
-        $password = "";
 
         if ($request->file('image') != null) {
             unlink("storage/" . $user->image);
             $pathAvatar = $request->file('image')->store('public/users');
             $pathAvatar = str_replace("public/", "", $pathAvatar);
-        } 
-        else {
+        } else {
             $pathAvatar = $user->image;
             // dd($pathAvatar);
         }
@@ -221,10 +256,11 @@ class UserController extends Controller
                 'profile' => $request->profile,
                 'image' => $pathAvatar,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'password' => $request->password,
                 'intro' => "",
                 'register_at' => date('Y-m-d'),
                 'last_login' => date('Y-m-d'),
+                'status' => $request->status,
             ]);
 
             $user->roles()->sync($request->role_id); // upload update array to role_user ===> 'sync'
@@ -245,7 +281,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user = $this->user->find($_REQUEST['id']);
-       unlink("storage/" . $user->image);
+        unlink("storage/" . $user->image);
         $user->delete();
         return redirect()->back()->with('status', 'Bạn đã xóa' . $user->name . ' thành công !');
     }

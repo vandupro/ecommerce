@@ -66,7 +66,10 @@ Sửa thông tin người dùng
                 </select>
                 <code> {{ $errors->first('profile') }} </code>
             </div>
-
+            <div class="custom-control custom-switch">
+                <input type="checkbox" {{$user->status==1? "checked":""}} class="custom-control-input" name="status" id="customSwitch1">
+                <label class="custom-control-label" for="customSwitch1">Kích hoạt tài khoản</label>
+            </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Mô tả người dùng</label>
                 <textarea name="profile" class="form-control" id="exampleInputEmail1" cols="30" rows="10" placeholder="Mô tả người dùng">{{$user->profile}}</textarea>

@@ -26,8 +26,9 @@
     <link rel="stylesheet" href="{{asset('asset_be/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{asset('asset_be/plugins/daterangepicker/daterangepicker.css')}}">
-    <!-- summernote -->
-    <link rel="stylesheet" href="{{asset('asset_be/plugins/summernote/summernote-bs4.min.css')}}">
+   <!-- summernote -->
+   <link rel="stylesheet" href="{{asset('asset_be/plugins/summernote/summernote-bs4.min.css')}}">
+  <link href="{{asset('asset_be/plugins/select2/css/select2.min.css')}}" rel="stylesheet" />
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

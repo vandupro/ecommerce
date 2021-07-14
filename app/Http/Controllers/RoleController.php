@@ -19,11 +19,25 @@ class RoleController extends Controller
         $this->permission = $permission;
         $this->role = $role;
     }
-    public function index()
-    {
-        $roles = $this->role->all();
+    public function index(Request $request)
+    {  
+        $data = [];
+        $request->table_search = isset($request->table_search) == true ? $request->table_search: "";
+        $pagenumber = isset($request->page) == true ? $request->page : 1; // 1 / 5 = 0->5   \\\ 2/5= 5->9
+        $pagesize = 5; // số lượng bản ghi trong một
+        $offset = ($pagenumber - 1) * $pagesize;
+       
+   
+        $roles = $this->role->where('name', 'like', '%' .$request->table_search. '%');
 
-        return view("admin.pages.roles.index", compact('roles'));
+        $data['totalPage'] = intval(ceil(count($roles->get()) / $pagesize));
+
+        $roles =  $roles->take($pagesize)->skip($offset)->get();
+
+        $data["table_search"] = $request->table_search;
+
+      // dd($data['totalPage']);
+        return view("admin.pages.roles.index", compact('roles','data'));
     }
 
     /**
@@ -108,6 +122,7 @@ class RoleController extends Controller
 
         if (isset($roles) && !empty($roles)) {
             $permissionsChecked = $roles->permissions;
+            
             return view("admin.pages.roles.edit", compact('permissions_parent', 'roles', 'permissionsChecked'));
         } else {
             return redirect()->back();
@@ -145,7 +160,7 @@ class RoleController extends Controller
             $roles = $this->role->find($id);
             $roles->permissions()->sync($request->permission_id); // upload update array to role_user ===> 'sync'
             DB::commit();
-            return redirect()->back()->with('status', 'Cập nhật chức vụ thành công !');;
+            return redirect()->back()->with('status', 'Cập nhật chức vụ thành công !');
         } catch (Exception $exception) {
             DB::rollBack();
             Log::error('message :', $exception->getMessage() . '--line :' . $exception->getLine());

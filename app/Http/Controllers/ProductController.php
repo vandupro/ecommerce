@@ -67,14 +67,21 @@ class ProductController extends Controller
         $model->fill($_POST);
         $model->image = $request->image;
         $model->save();
-        for($i = 0; $i < count($_POST['cate_id']); $i++){
-            $arr1[] = ['cate_id'=>$_POST['cate_id'][$i], 'product_id'=>$model->id];
+
+        if(isset($_POST['cate_id'])){
+            for($i = 0; $i < count($_POST['cate_id']); $i++){
+                $arr1[] = ['cate_id'=>$_POST['cate_id'][$i], 'product_id'=>$model->id];
+            }
+            Cate_Product::insert($arr1);
         }
-        for($i = 0; $i < count($_POST['tag_id']); $i++){
-            $arr2[] = ['tag_id'=>$_POST['tag_id'][$i], 'product_id'=>$model->id];
+        if(isset($_POST['cate_id'])){
+            for($i = 0; $i < count($_POST['tag_id']); $i++){
+                $arr2[] = ['tag_id'=>$_POST['tag_id'][$i], 'product_id'=>$model->id];
+            }
+            Tag_Product::insert($arr2);
         }
-        Cate_Product::insert($arr1);
-        Tag_Product::insert($arr2);
+        // Cate_Product::insert($arr1);
+        // Tag_Product::insert($arr2);
         $request->session()->flash('message', 'Thêm sản phẩm thành công');
         return redirect('/admin/products');
     }
@@ -149,17 +156,26 @@ class ProductController extends Controller
             $model->fill($_POST);
             $model->image = $image;
             $model->save();
-            for($i = 0; $i < count($_POST['cate_id']); $i++){
-                $arr1[] = ['cate_id'=>$_POST['cate_id'][$i], 'product_id'=>$model->id];
+            if(isset($_POST['cate_id'])){
+                for($i = 0; $i < count($_POST['cate_id']); $i++){
+                    $arr1[] = ['cate_id'=>$_POST['cate_id'][$i], 'product_id'=>$model->id];
+                }
+                Cate_Product::where('product_id', $model->id)->delete();
+                Cate_Product::insert($arr1);
             }
-            for($i = 0; $i < count($_POST['tag_id']); $i++){
-                $arr2[] = ['tag_id'=>$_POST['tag_id'][$i], 'product_id'=>$model->id];
+            
+            if(isset($_POST['tag_id'])){
+                for($i = 0; $i < count($_POST['tag_id']); $i++){
+                    $arr2[] = ['tag_id'=>$_POST['tag_id'][$i], 'product_id'=>$model->id];
+                }
+                Tag_Product::where('product_id', $model->id)->delete();
+                Tag_Product::insert($arr2);
             }
-            Cate_Product::where('product_id', $model->id)->delete();
-            Cate_Product::insert($arr1);
+            // Cate_Product::where('product_id', $model->id)->delete();
+            // Cate_Product::insert($arr1);
 
-            Tag_Product::where('product_id', $model->id)->delete();
-            Tag_Product::insert($arr2);
+            // Tag_Product::where('product_id', $model->id)->delete();
+            // Tag_Product::insert($arr2);
             $request->session()->flash('message', 'Cập nhật sản phẩm thành công');
             return redirect('/admin/products');
         }else{

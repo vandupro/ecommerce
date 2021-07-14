@@ -20,7 +20,7 @@
                     <td>{{ $c->name }}</td>
                     <td>{{ $c->slug }}</td>
                     <td>
-                        <a href="javascript:void(0)" onclick="editCategory({{$c->id}})" class="btn btn-warning">Sửa</a>
+                    <a href="javascript:void(0)" onclick="editCategory({{$c->id}})" class="btn btn-warning">Sửa</a>
                         <a href="javascript:void(0)" onclick="deleteCategory({{$c->id}})" class="btn btn-danger">Xóa</a>
                     </td>
                 </tr>

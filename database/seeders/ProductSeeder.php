@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Product;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
+use Faker\Factory as FakerFactory;
 class ProductSeeder extends Seeder
 {
     /**
@@ -15,5 +16,8 @@ class ProductSeeder extends Seeder
     public function run()
     {
         Product::factory(20)->create();
+      
+    
+        
     }
 }
