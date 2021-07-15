@@ -40,9 +40,9 @@
                         <select class="form-control" name="branch_id" id="">
                             @foreach($branches as $b)
                             @if($model->branch_id == $b->id)
-                                <option selected value="{{ $b->id }}"> {{ $b->name }} </option>
+                            <option selected value="{{ $b->id }}"> {{ $b->name }} </option>
                             @else
-                                <option selected value="{{ $b->id }}"> {{ $b->name }} </option>
+                            <option selected value="{{ $b->id }}"> {{ $b->name }} </option>
                             @endif
                             @endforeach
                         </select>
@@ -50,14 +50,14 @@
                     <div class="form-group">
                         <label for="cate_id">Danh mục</label> <br>
                         @foreach($categories as $c)
-                        <input {{ $product_ids->contains('cate_id', $c->id) ? 'checked' : ''}} type="checkbox" 
+                        <input {{ $product_ids->contains('cate_id', $c->id) ? 'checked' : ''}} type="checkbox"
                             name="cate_id[]" value="{{ $c->id }}"> {{ $c->name }} |
                         @endforeach
                     </div>
                     <div class="form-group">
                         <label for="cate_id">Tag</label> <br>
                         @foreach($tags as $t)
-                        <input {{ $tag_ids->contains('tag_id', $t->id) ? 'checked' : ''}} type="checkbox" 
+                        <input {{ $tag_ids->contains('tag_id', $t->id) ? 'checked' : ''}} type="checkbox"
                             name="tag_id[]" value="{{ $t->id }}"> {{ $t->name }} |
                         @endforeach
                     </div>
@@ -105,8 +105,8 @@
                     @enderror
                     <div class="form-group">
                         <label for="image">Hình ảnh</label>
-                        <input onchange="previewFile(this)" type="file" id="image_update" name="image" class="form-control"
-                            require>
+                        <input onchange="previewFile(this)" type="file" id="image_update" name="image"
+                            class="form-control" require>
                         <input type="hidden" name="image2" value="{{ $model->image }}">
                         <div class="mt-3" style="width: 130px; height: 200px; border: 1px solid gray">
                             <img style="max-width: 130px" src="{{ asset('/storage/images/products/'. $model->image) }}"

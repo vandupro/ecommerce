@@ -27,6 +27,7 @@ class ProductFactory extends Factory
             'slug' => $this->faker->slug(),
             'short_desc' => $this->faker->text(),
             'desc' => $this->faker->paragraph(),
+            'discount' => rand(0, 100),
             'price' => rand(100000, 100000000),
             'competitive_price' => rand(100000, 100000000),
             'image' => 'no image',
