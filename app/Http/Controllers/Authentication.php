@@ -84,7 +84,7 @@ class Authentication extends Controller
         // echo"<pre>";
         // var_dump( $token_forget->address); 
         //  dd( session()->get('admin_login2'),session('admin_login'));
-        if (!empty($_REQUEST['tp']) && ($_REQUEST['tp'] == $token_forget->token)) {
+        if (!empty($_REQUEST['tp']) &&!empty($token_forget->token)&& ($_REQUEST['tp'] == $token_forget->token)) {
             return view('admin.auth.new_pass');
         }
         return redirect('auth/login');
