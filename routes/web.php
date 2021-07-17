@@ -19,7 +19,7 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('admin.layout');
 });
-Route::name('admin.')->prefix('admin/', ['middleware' => 'HtmlMinifier'])->group(function () {
+Route::middleware('check','login_manage')->name('admin.')->prefix('admin/', )->group(function () {
     Route::name('categories.')->prefix('categories/')->group(function () {
         Route::get('', [CategoryController::class, 'index'])->name('index');
         //Route::get('create', [CategoryController::class, 'create'])->name('create');
@@ -71,5 +71,17 @@ Route::name('admin.')->prefix('admin/', ['middleware' => 'HtmlMinifier'])->group
         Route::post('store', 'UserController@store')->name('user.store');
         Route::post('update/{id}', 'UserController@update')->name('user.update');
     });
+});
+
+
+
+Route::prefix('auth')->group(function () {
+    Route::get('login', 'Authentication@login_get')->name('auth.login');
+    Route::get('logout', 'Authentication@login_out')->name('auth.logout');
+    Route::get('forgot', 'Authentication@forgot')->name('auth.forgot');
+    Route::get('new_pass', 'Authentication@new_password')->name('auth.new_pass');
+    Route::post('strore_pass', 'Authentication@strore_password')->name('auth.strore_pass');
+    Route::post('confirm', 'email\SendMailControllers@sendemail')->name('auth.confirm');
+    Route::post('login_post', 'Authentication@login_post')->name('authentication.login_post');
 });
 // HtmlMinifier xóa bỏ khoảng trắng trong html giúp tăng tốc laravel

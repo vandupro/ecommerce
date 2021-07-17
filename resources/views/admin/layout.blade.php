@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,10 +79,12 @@
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
+            abckdfmgl;dfmgl;fd,mgl;fd,mgl;fdgfd
         </aside>
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+
     <!-- jQuery -->
     <script src="{{asset('asset_be/plugins/jquery/jquery.min.js')}}"></script>
     <!-- jQuery UI 1.11.4 -->
@@ -104,6 +107,10 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('asset_be/dist/js/demo.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+ 
+
     @yield('javascript')
 </body>
 

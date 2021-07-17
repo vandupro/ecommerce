@@ -23,12 +23,30 @@ class UserController extends Controller
         $this->role = $role;
     }
     public function index()
-    {  // $users = $this->user->all();
-        $roles = $this->role->all();
-       // $ABC= $roles->Permissions_roles;
-// dd($ABC);
-      
-        return view('admin.pages.users.index', compact('roles'));
+    {  
+        $roles = $this->role->all();  
+        $roles[0]->id = !empty($roles[0]->id) == true ? $roles[0]->id : 0;
+        $id = isset($_REQUEST['roles_id']) == true ? $_REQUEST['roles_id'] : $roles[0]->id;  
+        $status = isset($_REQUEST['status']) == true ? $_REQUEST['status'] : "";     
+        $search = isset($_REQUEST['name']) == true ? $_REQUEST['name'] : ""; 
+        $pagenumber = isset($_REQUEST['page']) == true ? $_REQUEST['page'] : 1; 
+        $pagesize = 4; // số lượng bản ghi trong một
+        $offset = ($pagenumber - 1) * $pagesize;
+
+        $users = DB::table('roles')
+            ->join('roles_users', 'roles.id', '=', 'roles_users.role_id')
+            ->join('users', 'users.id', '=', 'roles_users.user_id')
+            ->where('roles.id', '=', $id)->where('users.name', 'like', '%' . $search. '%');
+
+
+        if ($status == "1" || $status === "0") {
+            $users =  $users->where('status',$status);
+        }
+        $data['totalPage'] = intval(ceil(count($users->get()) / $pagesize));
+        $users =  $users->take($pagesize)->skip($offset)->get();
+
+        // dd($users);
+        return view('admin.pages.users.index', compact('roles',"users",'data'));
     }
 
     /**
@@ -40,30 +58,6 @@ class UserController extends Controller
     {
         $roles = $this->role->all();
         return view("admin.pages.users.add", compact('roles'));
-    }
-    public function ajax()
-    {
-        $pagenumber = isset($_REQUEST['page']) == true ? $_REQUEST['page'] : 1; // 1 / 5 = 0->5   \\\ 2/5= 5->9
-        $pagesize = 4; // số lượng bản ghi trong một
-        $offset = ($pagenumber - 1) * $pagesize;
-
-        $users = DB::table('roles')
-            ->join('roles_users', 'roles.id', '=', 'roles_users.role_id')
-            ->join('users', 'users.id', '=', 'roles_users.user_id')
-            ->where('roles.id', '=', $_REQUEST['id'])->where('users.name', 'like', '%' . $_REQUEST['search'] . '%');
-        if ($_REQUEST['status'] == "1" || $_REQUEST['status'] === "0") {
-            $users =  $users->where('status',$_REQUEST['status']);
-        }
-        $data['totalPage'] = intval(ceil(count($users->get()) / $pagesize));
-        $users =  $users->take($pagesize)->skip($offset)->get();
-      
-       if($data['totalPage']!=0){
-         $users[0]->paging = $data;  
-       }
-      // dd( $users);
-        $json = response()->json($users);
-        //    dd($users);
-        return $json;
     }
 
     public function store(Request $request)
@@ -99,6 +93,7 @@ class UserController extends Controller
         ];
 
         $validator = $request->validate($rules, $messages);
+        
         if ($request->status == "on") {
             $request->status = 1;
         } else {
