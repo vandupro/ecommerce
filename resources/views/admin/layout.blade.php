@@ -87,19 +87,24 @@
 
     <!-- jQuery -->
     <script src="{{asset('asset_be/plugins/jquery/jquery.min.js')}}"></script>
+    <!-- <scripts src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
     <!-- jQuery UI 1.11.4 -->
     <script src="{{asset('asset_be/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+    <!-- <scripts src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> -->
+    
+
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
     $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
     <script src="{{asset('asset_be/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script> -->
     <!-- Tempusdominus Bootstrap 4 -->
-    <!-- <script src="{{asset('asset_be/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script> -->
+    <!-- file hỏng <script src="{{asset('asset_be/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script> -->
     <!-- Summernote -->
     <script src="{{asset('asset_be/plugins/summernote/summernote-bs4.min.js')}}"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/summernote/dist/summernote-bs4.min.js"></script> -->
     <!-- overlayScrollbars -->
     <script src="{{asset('asset_be/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
     <!-- AdminLTE App -->

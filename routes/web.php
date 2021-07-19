@@ -19,7 +19,7 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('admin.layout');
 });
-Route::middleware('check','login_manage')->name('admin.')->prefix('admin/', )->group(function () {
+Route::middleware('HtmlMinifier','login_manage')->name('admin.')->prefix('admin/', )->group(function () {
     Route::name('categories.')->prefix('categories/')->group(function () {
         Route::get('', [CategoryController::class, 'index'])->name('index');
         //Route::get('create', [CategoryController::class, 'create'])->name('create');

@@ -38,7 +38,7 @@ class SendMailControllers extends Controller
         }
         $minutes = 300;
         $token = Hash::make(rand(100000, 9999999));
-        $address = ["phuongddph10045@fpt.edu.vn"];
+        $address = [$request->email];
         $token_forget=["token"=>$token,"address"=>$address];
        Cookie::queue('token_forget',json_encode($token_forget), $minutes);
         $content = [
