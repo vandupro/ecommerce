@@ -178,6 +178,30 @@
 
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Hình ảnh sản phẩm
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tất cả ảnh</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm ảnh</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
