@@ -38,22 +38,14 @@
                             @endforeach
                         </select>
                     </div>
+                    <div style="width: 80%; margin-top:23px" class="ml-3">
+                        <input value="{{$param['keyword']}}" placeholder="type here" class="form-control"
+                            type="text" name="keyword">
+
+                    </div>
                     <div class="mr-3 ml-3" style="margin-top: 22px">
                         <button class="btn btn-success">Lọc</button>
                     </div>
-                </div>
-            </form>
-            <form style="width: 100%; display:flex; justify-content:space-around; margin-top: 37px;" action=""
-                method="GET">
-                <div style="width: 80%">
-                    <input required value="{{$param['keyword']}}" placeholder="type here" class="form-control"
-                        type="text" name="keyword">
-                    <!-- @error('keyword')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror -->
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-info">Search</button>
                 </div>
             </form>
         </div>
@@ -96,59 +88,7 @@
         </table>
     </div>
     @if(count($models))
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            @if($param['tag'] != null || $param['branch'] != null || $param['category'] != null)
-            <li class="page-item {{$currentPage==1?'disabled':''}}"><a class="page-link" href="{{route('admin.products.index') 
-                    . '?category='.$param['category']
-                    . '&tag='.$param['tag']
-                    . '&branch='.$param['branch']
-                    . '&page='
-                }}{{$currentPage-1}}">Previous</a></li>
-            @elseif($param['keyword'] != null)
-            <li class="page-item {{$currentPage==1?'disabled':''}}"><a class="page-link"
-                    href="{{route('admin.products.index') . '?keyword='.$param['keyword']. '&page='}}{{$currentPage-1}}">Previous</a>
-            </li>
-            @else
-            <li class="page-item {{$currentPage==1?'disabled':''}}"><a class="page-link"
-                    href="{{route('admin.products.index') . '?page='}}{{$currentPage-1}}">Previous</a></li>
-            @endif
-
-            @for($i = 1; $i <= $totalPage; $i++) @if($param['tag'] !=null || $param['branch'] !=null ||
-                $param['category'] !=null) <li class="page-item {{$i==$currentPage?'active':''}}"><a class="page-link"
-                    href="{{route('admin.products.index') 
-                    . '?category='.$param['category']
-                    . '&tag='.$param['tag']
-                    . '&branch='.$param['branch']
-                    . '&page='.$i
-                }}">{{$i}}</a></li>
-                @elseif($param['keyword'] != null)
-                <li class="page-item {{$i==$currentPage?'active':''}}"><a class="page-link"
-                        href="{{route('admin.products.index') . '?keyword='.$param['keyword']. '&page=' . $i}}">{{$i}}</a>
-                </li>
-                @else
-                <li class="page-item {{$i==$currentPage?'active':''}}"><a class="page-link"
-                        href="{{route('admin.products.index') . '?page=' . $i}}">{{$i}}</a></li>
-                @endif
-                @endfor
-
-                @if($param['tag'] != null || $param['branch'] != null || $param['category'] != null)
-                <li class="page-item {{$currentPage==$totalPage?'disabled':''}}"><a class="page-link" href="{{route('admin.products.index') 
-                    . '?category='.$param['category']
-                    . '&tag='.$param['tag']
-                    . '&branch='.$param['branch']
-                    . '&page='
-                }}{{$currentPage+1}}">Next</a></li>
-                @elseif($param['keyword'] != null)
-                <li class="page-item {{$currentPage==$totalPage?'disabled':''}}"><a class="page-link"
-                        href="{{route('admin.products.index') . '?keyword='.$param['keyword']. '&page='}}{{$currentPage+1}}">Next</a>
-                </li>
-                @else
-                <li class="page-item {{$currentPage==$totalPage?'disabled':''}}"><a class="page-link"
-                        href="{{route('admin.products.index') . '?page='}}{{$currentPage+1}}">Next</a></li>
-                @endif
-        </ul>
-    </nav>
+    {{$models->links()}}
     @endif
 </div>
 @endsection

@@ -28,7 +28,8 @@ class ProductController extends Controller
         $this->tags = Tag::select(['id', 'slug', 'name'])->get();
     }
     public function index(Request $request)
-    {
+    {   
+        $searchData = $request->except('page');
         $models = Product::where(function ($query) use ($request) {
             if ($request->category) {
                 $cate = Category::where('slug', $request->category)->first();
@@ -55,23 +56,20 @@ class ProductController extends Controller
             return $request->keyword?$query->from('products')->where('name', 'like', "%$request->keyword%"):'';
         })
         ->orderBy('id', 'desc')
-            ->paginate(5);
+            ->paginate(10)->appends($searchData);
 
         $categories = $this->categories;
         $branches = $this->branches;
         $tags = $this->tags;
         $request->session()->flash('check', ['cate'=> $request->category, 'tag'=>$request->tag, 'branch'=>$request->branch]);
-        // pagination
         $param = [
             'tag'=>$request->tag,
             'category'=>$request->category,
             'branch'=>$request->branch,
             'keyword'=>$request->keyword,
         ];
-        $totalPage = $models->lastPage();
-        $currentPage = $models->currentPage();
         return view('admin.pages.products.index', 
-        compact('models', 'categories', 'branches', 'tags', 'totalPage', 'currentPage', 'param'));
+        compact('models', 'categories', 'branches', 'tags', 'param'));
     }
 
     /**

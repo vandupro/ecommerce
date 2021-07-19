@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -36,6 +37,15 @@ Route::name('admin.')->prefix('admin/', ['middleware' => 'HtmlMinifier'])->group
         Route::get('edit/{id}', [ProductController::class, 'edit'])->name('edit');
         Route::post('update', [ProductController::class, 'update'])->name('update');
         Route::get('delete/{id}', [ProductController::class, 'destroy'])->name('delete');
+    });
+
+    Route::name('images.')->prefix('images/')->group(function () {
+        Route::get('', [ImageController::class, 'index'])->name('index');
+        Route::get('create', [ImageController::class, 'create'])->name('create');
+        Route::post('store', [ImageController::class, 'store'])->name('store');
+        Route::get('edit/{id}', [ImageController::class, 'edit'])->name('edit');
+        Route::post('update', [ImageController::class, 'update'])->name('update');
+        Route::get('delete/{id}', [ImageController::class, 'destroy'])->name('delete');
     });
 
     Route::name('branches.')->prefix('branches/')->group(function () {

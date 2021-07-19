@@ -14,7 +14,10 @@ class ImageController extends Controller
      */
     public function index()
     {
-        //
+        $pagesize = 10;
+        $images = Image::with(['product'])->paginate($pagesize);
+
+        return view('admin.images_product.index', compact('images', 'pagesize'));
     }
 
     /**
