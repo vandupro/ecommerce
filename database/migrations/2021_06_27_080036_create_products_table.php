@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->double('price');
             $table->double('competitive_price');
             $table->string('image', 150);
-
+            $table->unsignedInteger('discount');
           
             $table->timestamps();
         });

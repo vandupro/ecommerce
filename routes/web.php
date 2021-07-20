@@ -20,11 +20,10 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('admin.layout');
 });
+//middleware('login_manage')->
 Route::name('admin.')->prefix('admin/', )->group(function () {
     Route::name('categories.')->prefix('categories/')->group(function () {
-        Route::get('',function(){
-            return view("hello");
-        });
+        Route::get('', [CategoryController::class, 'index'])->name('index');
         //Route::get('create', [CategoryController::class, 'create'])->name('create');
         Route::post('store', [CategoryController::class, 'store'])->name('store');
         Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('edit');
@@ -82,6 +81,14 @@ Route::name('admin.')->prefix('admin/', )->group(function () {
         Route::get('destroy', 'UserController@destroy')->name('user.destroy');
         Route::post('store', 'UserController@store')->name('user.store');
         Route::post('update/{id}', 'UserController@update')->name('user.update');
+    });
+    Route::prefix('slider')->group(function () {
+        Route::get('index', 'SliderController@index')->name('slider.index');
+        Route::get('create', 'SliderController@create')->name('slider.create');
+        Route::get('edit/{id}', 'SliderController@edit')->name('slider.edit');
+        Route::get('destroy/{id}', 'SliderController@destroy')->name('slider.destroy');
+        Route::post('store', 'SliderController@store')->name('slider.store');
+        Route::post('update/{id}', 'SliderController@update')->name('slider.update');
     });
 });
 

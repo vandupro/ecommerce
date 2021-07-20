@@ -3,14 +3,7 @@
 Danh sách người dùng
 @endsection
 @section('content')
-@if (session('status'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong> {{ session('status') }}</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="color:black; opacity: 01;">
-        <span aria-hidden="true" style="color:black">&times;</span>
-    </button>
-</div>
-@endif
+
 
 
 <div class="card card-primary">
@@ -108,7 +101,16 @@ Danh sách người dùng
 @endsection
 
 @section('javascript')
-
+@if(Session::has('status'))
+<script>
+swal({
+    title: "Good job!",
+    text: "{{ Session::get('status') }}!",
+    icon: "success",
+    button: "OK!",
+});
+</script>
+@endif
 <script>
     $(document).ready(function() {
         $(".page-link").on("click", function(e) {

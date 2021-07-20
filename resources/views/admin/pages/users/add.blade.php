@@ -3,14 +3,8 @@
 Thêm mới người dùng
 @endsection
 @section('content')
-@if (session('status'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong> {{ session('status') }}</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="color:black; opacity: 01;">
-        <span aria-hidden="true" style="color:black">&times;</span>
-    </button>
-</div>
-@endif<div class="card card-primary">
+
+<div class="card card-primary">
     <div class="card-header">
         <h3 class="card-title d-flex "> <a href="{{route('admin.user.index')}}"><i class="fas fa-undo-alt"></i></a></h3>
     </div>
@@ -96,7 +90,18 @@ Thêm mới người dùng
 @section('javascript')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="{{asset('asset_be/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+@if(Session::has('status'))
 <script>
+swal({
+    title: "Good job!",
+    text: "{{ Session::get('status') }}!",
+    icon: "success",
+    button: "OK!",
+});
+</script>
+@endif
+<script>
+
     function previewFile(input) {
     var file = $("#product_image").get(0).files[0];
     console.log(file);

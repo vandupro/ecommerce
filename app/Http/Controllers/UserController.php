@@ -25,7 +25,8 @@ class UserController extends Controller
     public function index()
     {  
         $roles = $this->role->all();  
-        $roles[0]->id = !empty($roles[0]->id) == true ? $roles[0]->id : 0;
+    
+        if(count($roles)>0){
         $id = isset($_REQUEST['roles_id']) == true ? $_REQUEST['roles_id'] : $roles[0]->id;  
         $status = isset($_REQUEST['status']) == true ? $_REQUEST['status'] : "";     
         $search = isset($_REQUEST['name']) == true ? $_REQUEST['name'] : ""; 
@@ -44,9 +45,10 @@ class UserController extends Controller
         }
         $data['totalPage'] = intval(ceil(count($users->get()) / $pagesize));
         $users =  $users->take($pagesize)->skip($offset)->get();
-
-        // dd($users);
-        return view('admin.pages.users.index', compact('roles',"users",'data'));
+        return view('admin.pages.users.index', compact('roles',"users",'data'));}
+        else{
+            return redirect("admin/role/index")->with('message', 'Mời thêm chức vụ !');
+        }
     }
 
     /**

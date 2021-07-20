@@ -121,5 +121,14 @@ Danh mục chức vụ
             });
         });
     </script>
-
+@if(Session::has('message'))
+<script>
+swal({
+            title: "Thiếu chức vụ?",
+            text: "{{ Session::get('message') }}",
+            icon: "warning",
+            dangerMode: true,
+        });
+</script>
+@endif
 @endsection

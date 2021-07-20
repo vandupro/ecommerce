@@ -121,7 +121,7 @@ class ProductController extends Controller
             }
             Cate_Product::insert($arr1);
         }
-        if (isset($_POST['cate_id'])) {
+        if (isset($_POST['tag_id'])) {
             for ($i = 0; $i < count($_POST['tag_id']); $i++) {
                 $arr2[] = ['tag_id' => $_POST['tag_id'][$i], 'product_id' => $model->id];
             }

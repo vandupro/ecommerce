@@ -16,10 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // dd("models");
-       // $models = Category::orderBy('id', 'desc')->get();
-        
-        return view('hello');
+        $models = Category::orderBy('id', 'desc')->get();
+        return view('admin.pages.categories.index', compact('models'));
     }
 
     public function store(Request $request)
